@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>sort algorithms</title>
+	
+</head>  
+<body>
+<script type="text/javascript">
+  	function selectSort(arr){
+  	  var i, j, temp, len=arr.length, min;
+  	  for( i=0 ; i<len; i++ ){
+        min = i;
+        for( j=i+1; j<len; j++ ){
+          if( arr[j]<arr[min] ) min = j;
+        }
+
+        temp = arr[i];
+        arr[i] = arr[min];
+        arr[min] = temp;
+  	  }	
+  	  return arr;
+  	}
+
+    function insertSort( arr ){
+    	var i, j, len;
+
+    	for( i=1; i<len; i++ ){
+    		for( j=i; j>0 && arr[j]<arr[j-1]; j-- ){
+          temp = arr[j-1];
+          arr[j-1] = arr[j];
+          arr[j]   = temp;
+    		}
+    	}
+    }
+
+    function shellSort( arr ){
+      let n = arr.length;
+      let h = 1;
+
+      while( h<n/3 ){
+        h = h*3 +1;
+      }
+
+      while( h>=1 ){
+        for( let i=h; i<n; i++ ){
+          for( let j=i; j>=h && arr[j]<arr[j-h]; j-=h ){
+            exch( arr, j, j-h );
+          }
+        }
+      }
+    }
+
+    function mergeSort( arr ){
+      let i=0, h=arr.length, mid = Math.floor( h/2 );
+
+      for( let k=0; k<h; i++ )
+        aux[k] = arr[k];
+
+      for( let k=0; k<h; k++ ){
+        if( i>mid ) a[k]      = aux[j++];
+        else if( j>hi  ) a[k] = aux[i++];
+        else if( aux[j] < aux[i] ) a[k] = aux[j++];
+        else             a[k] = aux[i++];
+      }
+    }
+
+    function quickSort( arr ){
+      if( arr.length<=1 ){
+        return arr;
+      }
+      let pivotIndex = Math.floor( arr.length/2 );
+      let pivot  = myArray.splice( pivotIndex, 1 )[0];
+      let left   = [];
+      let right  = [];
+      for( let i=0; i<arr.length; i++ ){
+        if( arr[i]<pivot ){
+          left.push( arr[i] );
+        }
+        else{
+          right.push( arr[i] );
+        }
+      }
+
+      return quickSort(left).concat([pivot, quickSort(right)])
+    }
+    
+    function exch( arr, index1, index2 ){
+      let temp = arr[index1];
+      arr[index1] = arr[index2];
+      arr[index2] = temp;
+    }
+  
+  </script>
+
+
+</body>
+</html>
