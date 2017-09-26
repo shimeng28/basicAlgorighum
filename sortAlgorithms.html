@@ -2,10 +2,14 @@
 <html>
 <head>
 	<title>sort algorithms</title>
-	
+	<style type="text/css">
+  </style>
 </head>  
 <body>
+
 <script type="text/javascript">
+    //选择排序
+    //从前向后依次将小的元素放到前面
   	function selectSort(arr){
   	  var i, j, temp, len=arr.length, min;
   	  for( i=0 ; i<len; i++ ){
@@ -20,7 +24,8 @@
   	  }	
   	  return arr;
   	}
-
+    //插入排序
+    //将元素与它前面的元素比较，如果前面的元素比它大，交换两者位置，
     function insertSort( arr ){
     	var i, j, len;
 
@@ -32,7 +37,8 @@
     		}
     	}
     }
-
+    //希尔排序
+    //设置间隔，两个间隔之间的用插入排序的思想
     function shellSort( arr ){
       let n = arr.length;
       let h = 1;
@@ -49,27 +55,53 @@
         }
       }
     }
-
+    //归并排序 将两个有序的数组，归并为一个有序的数组
+    //利用递归 
     function mergeSort( arr ){
-      let i=0, h=arr.length, mid = Math.floor( h/2 );
+      let aux=[], h=arr.length-1;
 
-      for( let k=0; k<h; i++ )
+      for( let k=0; k<=h; k++ )
         aux[k] = arr[k];
 
-      for( let k=0; k<h; k++ ){
-        if( i>mid ) a[k]      = aux[j++];
-        else if( j>hi  ) a[k] = aux[i++];
-        else if( aux[j] < aux[i] ) a[k] = aux[j++];
-        else             a[k] = aux[i++];
-      }
-    }
+      sort( arr, 0, arr.length-1 );
+      
+      return arr;
 
+
+      function sort(arr, l, h){
+        if( h<=l ) return;
+        let mid = Math.floor( (h+l)/2 );
+        sort( arr, l, mid );
+        sort( arr, mid+1, h );
+        merge( arr, l, h );
+      }
+      function merge( arr, l, h ){
+        let i=l, mid = Math.floor( (l+h)/2 ), j=mid+1;
+        for( let k=l; k<=h; k++ ){
+          if     ( i>mid )           arr[k] = aux[j++];
+          else if( j>h )             arr[k] = aux[i++];
+          else if( aux[j] < aux[i] ) arr[k] = aux[j++];
+          else                       arr[k] = aux[i++];
+        }
+
+        for( let k=l; k<=h; k++ ){
+          aux[k] = arr[k];
+        }
+        console.log( arr );
+      }     
+     
+    }
+    //快排
+    //找到pivot，利用中间的找
+    //将整个数组分为left和right两部分
+    //小于pivot的放在left，否则放到right
+    //之后递归执行left和right
     function quickSort( arr ){
       if( arr.length<=1 ){
         return arr;
       }
       let pivotIndex = Math.floor( arr.length/2 );
-      let pivot  = myArray.splice( pivotIndex, 1 )[0];
+      let pivot  = arr.splice( pivotIndex, 1 )[0];
       let left   = [];
       let right  = [];
       for( let i=0; i<arr.length; i++ ){
@@ -81,7 +113,7 @@
         }
       }
 
-      return quickSort(left).concat([pivot, quickSort(right)])
+      return quickSort(left).concat(pivot, quickSort(right))
     }
     
     function exch( arr, index1, index2 ){
@@ -89,7 +121,9 @@
       arr[index1] = arr[index2];
       arr[index2] = temp;
     }
-  
+    let arr = [1,23,453,2,5,3,6];
+    console.log( 'source: ' + arr )
+    console.log( quickSort(arr) );
   </script>
 
 
