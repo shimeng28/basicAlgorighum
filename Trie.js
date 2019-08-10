@@ -86,3 +86,54 @@ class Trie {
     return this.size;
   }
 }
+
+class WordDictionary {
+  constructor() {
+    this.root = new Node();
+  }
+
+  addWord(word) {
+    let curr = this.root;
+    for (let i = 0; i < word.length; i++) {
+      if (!curr.next.has(word[i])) {
+        curr.next.set(word[i], new Node());
+      }
+
+      curr = curr.next.get(word[i]);
+    }
+
+    curr.isWord = true;
+  }
+
+  match(node, word, index) {
+    const length = word.length;
+    if (length === index) {
+      return node.isWord;
+    }
+
+    let curr = node;
+    for (let i = index; i < length; i++) {
+      const char = word[i];
+      if (char === '.') {
+        for (let nodeItem of curr.next.values()) {
+          if(this.match(nodeItem, word, i+1)) {
+            return true;
+          }
+        }
+        return false;
+      } else {
+        if (!curr.next.has(char)) {
+          return false;
+        }
+
+        curr = curr.next.get(char);
+      }
+    }
+
+    return curr.isWord;
+  }
+
+  search(word) {
+    return this.match(this.root, word, 0);
+  }
+}
