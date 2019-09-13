@@ -161,9 +161,9 @@ class RBT {
   }
 }
 
-const bst = new BST();
-bst.append(1, 1);
-bst.append(2, 2);
-bst.append(3, 3);
-bst.delete(2);
+const rbt = new RBT();
+rbt.append(1, 1);
+rbt.append(2, 2);
+rbt.append(3, 3);
+rbt.delete(2);
 
